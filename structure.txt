@@ -1,0 +1,47 @@
+GeoPy
+|
+|-point.py**
+|  |-Point**
+|     |~Vector
+|
+|
+|-line2d.py**
+|  |-Line2D**
+|     |~Line
+|     |=Point
+|
+|-line.py
+|  |-Line+^
+|     |=Vector
+|
+|-<other n-lines shapes>
+|
+|-base^^
+|  |-vector.py**
+|  |  |-Vector+**
+|  |
+|  |-polygon.py
+|  |  |-Polygon+**
+|  |     |=Point   # Polygon may be split up into two different classes, PointPolygon and
+|  |     |=Line    # LinePolygon, basically the polygon is constructed using points or lines
+|  |
+|  |-polarpoint.py^^
+|  |  |-PolarPoint^^
+|  |     |~Vector?
+|
+
+
+Base may become core and only vector, point, and line classes are included in it
+
+Pondering: support for imaginary vectors, and imaginary + real vectors,
+           support for n-dimensional shapes or just 3d shapes
+
+
+*Done
+**Working On
+^Not Started
+^^Tentative
++Base
+~Inherits
+=Uses
+?Not Sure (for dependencies only)
