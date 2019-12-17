@@ -5,20 +5,16 @@ GeoPy
 |     |~Vector
 |
 |
-|-line2d.py**
-|  |-Line2D**
+|-line2d.py^
+|  |-Line2D^
 |     |~Line
 |     |=Point
 |
-|-line.py
-|  |-Line+^
-|     |=Vector
+|-<other n-line shapes>  # Support for curves maybe?
 |
-|-<other n-lines shapes>
-|
-|-base^^
-|  |-vector.py**
-|  |  |-Vector+**
+|-core^^
+|  |-vector.py*
+|  |  |-Vector+&&
 |  |
 |  |-polygon.py
 |  |  |-Polygon+**
@@ -27,11 +23,18 @@ GeoPy
 |  |
 |  |-polarpoint.py^^
 |  |  |-PolarPoint^^
-|  |     |~Vector?
+|  |     |~Vector?  # I'm thinking right now that it shouldn't use Vector
+|  |
+|  |-line.py
+|  |  |-Line+^
+|  |     |=Vector
+|  |
 |
 
 
+
 Base may become core and only vector, point, and line classes are included in it
+        ^^ already happened
 
 Pondering: support for imaginary vectors, and imaginary + real vectors,
            support for n-dimensional shapes or just 3d shapes
@@ -39,6 +42,8 @@ Pondering: support for imaginary vectors, and imaginary + real vectors,
 
 *Done
 **Working On
+&Revising
+&&Need to check documentation
 ^Not Started
 ^^Tentative
 +Base
