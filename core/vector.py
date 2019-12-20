@@ -1,3 +1,4 @@
+"""Contains a generic base class for any kind of point, 2D, 3D, polar, etc."""
 from __future__ import annotations
 from typing import Union, Tuple
 import math
@@ -13,7 +14,6 @@ class Vector:
     def __init__(self, coordinates: Vector_raw, name=None):
 
         self.coordinates = np.array(coordinates, dtype=float)
-        self.d = len(self.coordinates)
         self.name = name
 
     def distance(self, origin: Union[Vector_raw, Vector] = None) -> float:
@@ -36,7 +36,7 @@ class Vector:
 
         return math.sqrt(sum(map(lambda x, x2: (x2 - x)**2,  self.coordinates, origin.coordinates)))
 
-    def copy(self, order="C"):
+    def copy(self, order="C") -> Vector:
         """
         Copy the vector and returns a fresh one without modifying the origina one, this implements
         numpy's `.copy()` to copy the coordinates, then it instantiates a new object.
@@ -47,6 +47,10 @@ class Vector:
         :rtype: Vector
         """
         return self.__class__(self.coordinates.copy(order=order))
+
+    @property
+    def d(self):
+        return len(self.coordinates)
 
     @classmethod
     def to_class(cls, item, no_scalar=False):
@@ -202,6 +206,45 @@ class Vector:
         self.check_class(other)
         return self.distance().__ge__(other.distance())
 
+    # -------- Unary -----------
+
+    def __pos__(self):
+        """
+        Called by the unitary positive (+) operator, returns a new object.
+
+        :return: New object
+        :rtype: Vector
+        """
+        return self.__class__(self.coordinates.__pos__())
+
+    def __neg__(self):
+        """
+        Called by the unitary negative (-) operator, returns a new object.
+
+        :return: New object
+        :rtype: Vector
+        """
+        return self.__class__(self.coordinates.__neg__())
+
+    def __abs__(self):
+        """
+        Called by `math.abs()`, returns a new object with all of the coordinates having been
+        absolute valued.
+
+        :return: New object
+        :rtype: Vector
+        """
+        return self.__class__(self.coordinates.__abs__())
+
+    def __invert__(self):
+        """
+        Called by unitary operator inverse (~), , returns a new object.
+
+        :return: New object
+        :rtype: Vector
+        """
+        return self.__class__(self.coordinates.__invert__())
+
     # -------- Math -------------
 
     def __add__(self, other: Union[Vector_raw, Scalar, Vector]):
@@ -315,6 +358,3 @@ class Vector:
         other = self.to_class(other)
         other = other.coordinates if isinstance(other, self.__class__) else other
         return self.coordinates.__matmul__(other)
-
-
-print(help(Vector(()).coordinates))
